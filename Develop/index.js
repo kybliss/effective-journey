@@ -36,14 +36,16 @@ const questions = [
 function writeToFile(response) {
     const stringifiedResponse = JSON.stringify(response, null, 2);
     fs.writeFile('data.json', stringifiedResponse, (err) => {
-        err ? console.error(err) : console.log(`This application is called ${questions.fileName}, written by ${questions.programmerName}. This program will ${questions.fileUse}. I can be found on GitHub at github.com/${questions.ghName}, or reached at ${questions.email}.`)
+        err ? console.error(err) : console.log(`This application is called ${response.fileName}, written by ${response.programmerName}. This program will ${response.fileUse}. I can be found on GitHub at github.com/${response.ghName}, or reached at ${response.email}.`)
     })
 }
 
 // TODO: Create a function to initialize app
 function init() {
     inquirer.prompt(questions)
-    .then(writeToFile)
+    .then(answers => {
+        writeToFile(answers)
+    })
 }
 
 // Function call to initialize app
